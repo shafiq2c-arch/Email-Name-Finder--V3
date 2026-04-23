@@ -69,10 +69,9 @@ app.state.limiter = limiter
 async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
     return _rate_limit_exceeded_handler(request, exc)
 
-FRONTEND_ORIGINS = os.getenv("FRONTEND_ORIGINS", "http://localhost:3000,http://localhost:8000,http://127.0.0.1:8000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=FRONTEND_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -81,31 +80,14 @@ app.add_middleware(
 app.include_router(search.router, tags=["Single Search"])
 app.include_router(bulk_search.router, tags=["Bulk Search"])
 
-frontend_path = os.path.dirname(__file__)
-
-@app.get("/ui")
-async def get_ui():
-    from fastapi.responses import FileResponse
-    return FileResponse(os.path.join(frontend_path, "index.html"))
-
-
-@app.get("/ui/{file_path:path}")
-async def get_frontend_files(file_path: str):
-    from fastapi.responses import FileResponse
-    file_full_path = os.path.join(frontend_path, file_path)
-    if os.path.isfile(file_full_path):
-        return FileResponse(file_full_path)
-    return FileResponse(os.path.join(frontend_path, "index.html"))
-
-
 @app.get("/")
 async def root():
     return {
-        "message": "Person Name Finder API is running.",
-        "ui_url": "/ui/index.html",
+        "status": "online",
+        "message": "Person Name Finder API (Headless)",
         "endpoints": {
             "search": "/search (POST)",
-            "bulk_search": "/bulk-search (POST)"
+            "bulk-search": "/bulk-search (POST)"
         }
     }
 
