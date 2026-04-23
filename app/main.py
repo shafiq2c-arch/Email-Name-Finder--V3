@@ -37,7 +37,7 @@ def validate_environment():
         logger.error(f"Missing required environment variables: {missing}")
         return False
     
-    searxng_url = os.getenv("SEARXNG_BASE_URL", "http://localhost:8888")
+    searxng_url = os.getenv("SEARXNG_BASE_URL", "https://searxngapp.app.digitalgalaxy.com:8080")
     logger.info(f"SearXNG URL: {searxng_url}")
     logger.info(f"OpenRouter API Key: {'*' * 20}{os.getenv('OPENROUTER_API_KEY', '')[-4:]}")
 
