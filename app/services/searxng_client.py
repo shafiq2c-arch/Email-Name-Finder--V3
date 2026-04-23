@@ -44,8 +44,8 @@ async def search(query: str, num_results: int = 10, max_retries: int = 4) -> Lis
             "Accept-Language": "en-US,en;q=0.9",
         }
         
-        # 3. Pick engine in sequence: Yahoo, duckduckgo, bing, google
-        selected_engines = ALL_ENGINES[attempt % len(ALL_ENGINES)]
+        # 3. Use all requested engines: Yahoo, duckduckgo, bing, google
+        selected_engines = ",".join(ALL_ENGINES)
         
         params = {
             "q": query,
