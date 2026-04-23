@@ -1,0 +1,98 @@
+﻿=== STEP 1: Generated 41 queries ===
+  [0] "PureLogics" CTO
+  [1] CTO PureLogics
+  [2] CTO at PureLogics
+  [3] CTO of PureLogics
+  [4] PureLogics CTO LinkedIn
+  ... and 36 more
+
+=== STEP 2: Query #0: "PureLogics" CTO ===
+  SearXNG: 10 results
+  DuckDuckGo: 0 results
+  Merged: 10 results
+  Strict filter: 2 results
+  Relaxed filter: 8 results
+    STRICT: PureLogics CEO, Founder, Key Executive Team, Board of Directors & Employees | https://www.cbinsights.com/company/purelogics/people
+    STRICT: PureLogics LLC - Crunchbase Company Profile & Funding | https://www.crunchbase.com/organization/purelogics
+    RELAXED: PureLogics CEO, Founder, Key Executive Team, Board of Directors & Employees | https://www.cbinsights.com/company/purelogics/people
+    RELAXED: Usman Akbar - Founder & CEO, PureLogics | https://pk.linkedin.com/in/usmanakbar
+    RELAXED: Usman Akbar - CEO at PureLogics | The Org | https://theorg.com/org/purelogics/org-chart/usman-akbar
+
+  === STEP 4: LLM on: PureLogics CEO, Founder, Key Executive Team, Board of Direct ===
+    Name: Unknown
+    company_match: True
+    designation_match: False
+    current_role: False
+    reasoning: The search result does not mention the CTO of PureLogics, only the CEO.
+    Strict verify: False | Relaxed verify: False
+
+  === STEP 4: LLM on: PureLogics LLC - Crunchbase Company Profile & Funding ===
+    Name: Muhammad Atif
+    company_match: True
+    designation_match: True
+    current_role: True
+    reasoning: The snippet mentions Muhammad Atif as the President & CTO of PureLogics, which matches the specified company and designation.
+    Strict verify: True | Relaxed verify: True
+    Confidence: 95
+
+=== STEP 2: Query #1: CTO PureLogics ===
+  SearXNG: 10 results
+  DuckDuckGo: 0 results
+  Merged: 10 results
+  Strict filter: 7 results
+  Relaxed filter: 10 results
+    STRICT: PureLogics LLC - Crunchbase Company Profile & Funding | https://www.crunchbase.com/organization/purelogics
+    STRICT: Muhammad Atif - CTO & President @ PureLogics | LinkedIn | https://www.linkedin.com/in/muhammadatif
+    STRICT: Muhammad Atif - Crunchbase Person Profile | https://www.crunchbase.com/person/muhammad-atif
+    RELAXED: PureLogics | Custom Software Development Company | https://purelogics.com/
+    RELAXED: PureLogics LLC - Crunchbase Company Profile & Funding | https://www.crunchbase.com/organization/purelogics
+    RELAXED: Muhammad Atif - CTO & President @ PureLogics | LinkedIn | https://www.linkedin.com/in/muhammadatif
+
+  === STEP 4: LLM on: PureLogics LLC - Crunchbase Company Profile & Funding ===
+    Name: Muhammad Atif
+    company_match: True
+    designation_match: True
+    current_role: True
+    reasoning: The snippet mentions Muhammad Atif as the President & CTO of PureLogics, which matches the specified company and designation.
+    Strict verify: True | Relaxed verify: True
+    Confidence: 95
+
+  === STEP 4: LLM on: Muhammad Atif - CTO & President @ PureLogics | LinkedIn ===
+    Name: Muhammad Atif
+    company_match: True
+    designation_match: True
+    current_role: True
+    reasoning: The search result clearly mentions Muhammad Atif as the CTO of PureLogics, with a current and active role indicated by the use of the present tense and his LinkedIn profile.
+    Strict verify: True | Relaxed verify: True
+    Confidence: 100
+
+=== STEP 2: Query #2: CTO at PureLogics ===
+  SearXNG: 10 results
+  DuckDuckGo: 0 results
+  Merged: 10 results
+  Strict filter: 3 results
+  Relaxed filter: 9 results
+    STRICT: PureLogics LLC - Crunchbase Company Profile & Funding | https://www.crunchbase.com/organization/purelogics
+    STRICT: PureLogics LLC Reviews (16), Pricing, Services & Verified Ratings | https://clutch.co/profile/purelogics
+    STRICT: PureLogics CEO, Founder, Key Executive Team, Board of Directors & Employees | https://www.cbinsights.com/company/purelogics/people
+    RELAXED: PureLogics LLC - Crunchbase Company Profile & Funding | https://www.crunchbase.com/organization/purelogics
+    RELAXED: PureLogics | LinkedIn | https://www.linkedin.com/company/purelogics
+    RELAXED: Usman Akbar - Founder & CEO, PureLogics | https://pk.linkedin.com/in/usmanakbar
+
+  === STEP 4: LLM on: PureLogics LLC - Crunchbase Company Profile & Funding ===
+    Name: Muhammad Atif
+    company_match: True
+    designation_match: True
+    current_role: True
+    reasoning: The snippet mentions Muhammad Atif as the President & CTO of PureLogics, which matches the specified company and designation.
+    Strict verify: True | Relaxed verify: True
+    Confidence: 95
+
+  === STEP 4: LLM on: PureLogics LLC Reviews (16), Pricing, Services & Verified Ra ===
+    Name: Unknown
+    company_match: True
+    designation_match: False
+    current_role: False
+    reasoning: The snippet does not mention the name of the CTO of PureLogics, but rather quotes someone who claims to be the CTO of a different, unspecified health data company.
+    Strict verify: False | Relaxed verify: False
+

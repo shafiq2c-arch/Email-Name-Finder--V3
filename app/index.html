@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Finder | AI-Powered Identity Resolution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-dark: #0f0f1a;
+    --bg-gradient-1: #1a1a2e;
+    --bg-gradient-2: #16213e;
+    --card-bg: rgba(30, 30, 50, 0.8);
+    --card-border: rgba(99, 102, 241, 0.3);
+    --primary: #6366f1;
+    --primary-glow: rgba(99, 102, 241, 0.4);
+    --primary-hover: #818cf8;
+    --secondary: #22d3ee;
+    --secondary-glow: rgba(34, 211, 238, 0.4);
+    --accent: #f472b6;
+    --accent-glow: rgba(244, 114, 182, 0.4);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --text-main: #ffffff;
+    --text-dim: #a5b4fc;
+    --text-muted: #64748b;
+    --border: rgba(255, 255, 255, 0.15);
+    --glass-blur: 16px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-gradient-1) 50%, var(--bg-gradient-2) 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+.background-blobs {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    filter: blur(100px);
+    opacity: 0.6;
+    pointer-events: none;
+}
+.blob { position: absolute; border-radius: 50%; animation: float 20s ease-in-out infinite; }
+.blob-1 { width: 500px; height: 500px; background: linear-gradient(135deg, #6366f1, #8b5cf6); top: -150px; right: -100px; animation-delay: 0s; }
+.blob-2 { width: 400px; height: 400px; background: linear-gradient(135deg, #22d3ee, #06b6d4); bottom: -100px; left: -100px; animation-delay: -5s; }
+.blob-3 { width: 350px; height: 350px; background: linear-gradient(135deg, #f472b6, #ec4899); top: 50%; left: 40%; animation-delay: -10s; }
+.blob-4 { width: 300px; height: 300px; background: linear-gradient(135deg, #34d399, #10b981); bottom: 30%; right: 10%; animation-delay: -15s; }
+@keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(30px, -30px) scale(1.05); } 50% { transform: translate(-20px, 20px) scale(0.95); } 75% { transform: translate(20px, 30px) scale(1.02); } }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+header { text-align: center; margin-bottom: 4rem; animation: fadeInDown 0.8s ease-out; }
+.logo { display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--primary-glow), var(--accent-glow)); border-radius: 50px; border: 1px solid var(--card-border); }
+.logo svg { color: var(--primary); }
+.logo span { color: var(--text-main); font-weight: 700; font-size: 1.1rem; background: linear-gradient(90deg, #fff, var(--primary-hover)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary-hover) 50%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 60px var(--primary-glow); }
+header p { color: var(--text-dim); font-size: 1.25rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 2.5rem; } }
+.glass { background: var(--card-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--card-border); border-radius: 24px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.glass:hover { border-color: var(--primary); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px var(--primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+.card { position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); opacity: 0; transition: opacity 0.3s; }
+.card:hover::before { opacity: 1; }
+.card h2 { font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 0.75rem; }
+.card h2::before { content: ''; width: 4px; height: 24px; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 2px; }
+.form-group { margin-bottom: 1.5rem; }
+label { display: block; margin-bottom: 0.5rem; color: var(--text-dim); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+input[type="text"] { width: 100%; background: rgba(15, 15, 26, 0.8); border: 2px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; color: var(--text-main); font-size: 1rem; transition: all 0.3s; }
+input[type="text"]::placeholder { color: var(--text-muted); }
+input[type="text"]:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow), 0 0 30px var(--primary-glow); background: rgba(15, 15, 26, 0.95); }
+.primary-btn, .secondary-btn { width: 100%; padding: 1rem 1.5rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; text-transform: uppercase; letter-spacing: 1px; position: relative; overflow: hidden; }
+.primary-btn { background: linear-gradient(135deg, var(--primary), #8b5cf6); color: #fff; box-shadow: 0 4px 20px var(--primary-glow); }
+.primary-btn:hover { background: linear-gradient(135deg, var(--primary-hover), #a78bfa); transform: translateY(-3px); box-shadow: 0 8px 30px var(--primary-glow); }
+.secondary-btn { background: linear-gradient(135deg, var(--secondary), #06b6d4); color: #0f172a; box-shadow: 0 4px 20px var(--secondary-glow); }
+.secondary-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px var(--secondary-glow); }
+.secondary-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.text-btn { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); border: 1px solid var(--primary); color: var(--text-main); padding: 0.75rem 1.5rem; border-radius: 10px; cursor: pointer; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; }
+.text-btn:hover { background: linear-gradient(135deg, var(--primary), #8b5cf6); transform: translateY(-2px); box-shadow: 0 4px 20px var(--primary-glow); }
+.upload-area { border: 2px dashed var(--border); border-radius: 16px; padding: 2.5rem; text-align: center; margin-bottom: 1.5rem; transition: all 0.3s; cursor: pointer; background: rgba(15, 15, 26, 0.5); }
+.upload-area:hover, .upload-area.dragover { border-color: var(--secondary); background: rgba(34, 211, 238, 0.1); box-shadow: inset 0 0 30px var(--secondary-glow); }
+.upload-icon { color: var(--secondary); margin-bottom: 1rem; filter: drop-shadow(0 0 10px var(--secondary-glow)); }
+.upload-area p { color: var(--text-dim); font-weight: 500; }
+.subtext { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+code { background: rgba(99, 102, 241, 0.2); padding: 0.125rem 0.5rem; border-radius: 4px; color: var(--primary-hover); }
+.results-table-section { margin-top: 2rem; animation: fadeInUp 0.6s ease-out; }
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.table-header h2 { font-size: 1.5rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 0.75rem; }
+.table-wrapper { overflow-x: auto; border-radius: 16px; background: rgba(15, 15, 26, 0.5); }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th { padding: 1rem 1.25rem; color: var(--text-dim); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--border); background: rgba(99, 102, 241, 0.1); }
+th:first-child { border-radius: 16px 0 0 0; }
+th:last-child { border-radius: 0 16px 0 0; }
+td { padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9375rem; color: var(--text-main); }
+tr { transition: background 0.2s; }
+tr:hover td { background: rgba(99, 102, 241, 0.1); }
+.badge { padding: 0.375rem 0.875rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-high { background: linear-gradient(135deg, rgba(52, 211, 153, 0.3), rgba(16, 185, 129, 0.3)); color: var(--success); border: 1px solid var(--success); box-shadow: 0 0 15px rgba(52, 211, 153, 0.3); }
+.badge-mid { background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.3)); color: var(--warning); border: 1px solid var(--warning); box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+.badge-low { background: linear-gradient(135deg, rgba(248, 113, 113, 0.3), rgba(239, 68, 68, 0.3)); color: var(--danger); border: 1px solid var(--danger); box-shadow: 0 0 15px rgba(248, 113, 113, 0.3); }
+.source-link { color: var(--secondary); text-decoration: none; font-weight: 500; }
+.source-link:hover { text-decoration: underline; text-shadow: 0 0 10px var(--secondary); }
+.result-box { margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15)); border: 1px solid var(--primary); border-radius: 16px; animation: fadeInUp 0.4s ease-out; }
+.result-box .result-name { font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+.result-box .result-company { color: var(--text-dim); font-size: 1rem; }
+.result-box .result-designation { color: var(--secondary); font-weight: 600; font-size: 1.125rem; margin-top: 0.5rem; }
+.result-box .result-source { margin-top: 1rem; font-size: 0.875rem; }
+.status-msg { margin-top: 1rem; padding: 1rem; border-radius: 12px; font-weight: 500; text-align: center; }
+.status-msg.success { background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(16, 185, 129, 0.2)); border: 1px solid var(--success); color: var(--success); }
+.status-msg.error { background: linear-gradient(135deg, rgba(248, 113, 113, 0.2), rgba(239, 68, 68, 0.2)); border: 1px solid var(--danger); color: var(--danger); }
+.status-msg.info { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); border: 1px solid var(--primary); color: var(--primary-hover); }
+.loader { width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.2); border-radius: 50%; border-top-color: #fff; border-bottom-color: var(--secondary); animation: spin 0.8s linear infinite; }
+.hidden { display: none !important; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+footer { text-align: center; padding: 4rem 0 2rem; color: var(--text-muted); font-size: 0.875rem; position: relative; z-index: 1; }
+footer span { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--primary-hover), var(--accent)); }
+::selection { background: var(--primary); color: white; }
+    </style>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                <span>Person Finder AI</span>
+            </div>
+            <h1>Identity Intelligence Engine</h1>
+            <p>Find the current holder of any designation at any company globally.</p>
+        </header>
+
+        <main>
+            <div class="grid">
+                <section class="card glass">
+                    <h2>Single Exploration</h2>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" placeholder="e.g. Nvidia, OpenAI, Tesla">
+                    </div>
+                    <div class="form-group">
+                        <label for="designation">Designation</label>
+                        <input type="text" id="designation" placeholder="e.g. CEO, CTO, VP of Engineering">
+                    </div>
+                    <button id="search-btn" class="primary-btn">
+                        <span class="btn-text">Search Intelligence</span>
+                        <div class="loader hidden"></div>
+                    </button>
+                    <div id="single-result" class="result-box hidden"></div>
+                </section>
+
+                <section class="card glass">
+                    <h2>Bulk Resolution</h2>
+                    <p class="subtext">Upload a CSV with <code>company</code> and <code>designation</code> columns.</p>
+                    <div class="upload-area" id="drop-zone">
+                        <input type="file" id="file-input" accept=".csv" class="hidden">
+                        <div class="upload-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <p id="file-name">Click to upload or drag & drop</p>
+                    </div>
+                    <button id="bulk-btn" class="secondary-btn" disabled>
+                        <span class="btn-text">Process Bulk List</span>
+                        <div class="loader hidden"></div>
+                    </button>
+                    <div id="bulk-status" class="status-msg hidden"></div>
+                </section>
+            </div>
+
+            <section class="results-table-section glass hidden" id="results-container">
+                <div class="table-header">
+                    <h2>Recent Extractions</h2>
+                    <button id="download-btn" class="text-btn hidden">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download CSV
+                    </button>
+                </div>
+                <div class="table-wrapper">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Designation</th>
+                                <th>Name</th>
+                                <th>Confidence</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Identity Resolution Agent | Powered by <span>SearXNG & Grok</span></p>
+        </footer>
+    </div>
+
+    <script src="/ui/app.js"></script>
+</body>
+</html>

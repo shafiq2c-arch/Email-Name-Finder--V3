@@ -1,0 +1,10 @@
+﻿--- Testing DDG ---
+[DuckDuckGo] Error for query 'PureLogic CEO': https://links.duckduckgo.com/d.js?q=PureLogic%20CEO&kl=wt-wt&l=wt-wt&p=&s=0&df=&vqd=4-135794787891973059727577422505627367457&ex=-1 202 Ratelimit
+DDG results count: 0
+
+--- Testing SearXNG ---
+[SearXNG] Error for query 'PureLogic CEO': All connection attempts failed
+SearXNG results count: 0
+
+--- Testing LLM ---
+LLM output: {'name': 'Corey Thomas', 'company_match': True, 'designation_match': True, 'current_role': True, 'reasoning': 'The snippet clearly mentions Corey Thomas as the current CEO of PureLogic IT Solutions since 2018.'}
