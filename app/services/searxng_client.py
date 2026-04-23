@@ -34,9 +34,9 @@ async def search(query: str, num_results: int = 10, max_retries: int = 4) -> Lis
         # Humanoid traits: 
         # 1. Random delay between requests to simulate human typing/reading speed
         if attempt > 0:
-            await asyncio.sleep(random.uniform(2.0, 5.0))
+            await asyncio.sleep(random.uniform(1.0, 2.5))
         else:
-            await asyncio.sleep(random.uniform(0.5, 2.0))
+            await asyncio.sleep(random.uniform(0.2, 0.8))
             
         # 2. Pick a random user agent
         headers = {

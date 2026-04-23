@@ -49,7 +49,7 @@ class SearchResult(BaseModel):
 
 async def _fetch_results(query: str) -> List[Dict]:
     """Fetch results from SearXNG (includes DDG). Random delay added to avoid rate‑limit bursts."""
-    await asyncio.sleep(random.uniform(1, 3))
+    await asyncio.sleep(random.uniform(0.5, 1.5))
     try:
         results = await searxng_client.search(query)
         logger.info(f"Fetched {len(results)} results from SearXNG")
